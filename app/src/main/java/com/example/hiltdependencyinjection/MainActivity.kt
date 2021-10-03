@@ -1,7 +1,7 @@
 package com.example.hiltdependencyinjection
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity() {
     //field injection
     @Inject
     lateinit var someClass: SomeClass
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,21 +23,24 @@ class MainActivity : AppCompatActivity() {
 class SomeClass
 @Inject
 constructor(
-    private val anotherClass: AnotherClass
+    //constructor injection
+    private val someOtherClass: SomeOtherClass
 ) {
-    fun doAThing(): String {
-        return "Hello world"
+
+    fun doAThing(): String{
+        return "Look I did a thing!"
     }
 
-    fun doSomeOtherThing(): String {
-        return anotherClass.anotherThing()
+    fun doSomeOtherThing(): String{
+       return someOtherClass.doSomeOtherThing()
     }
 }
 
-class  AnotherClass
+class SomeOtherClass
 @Inject
 constructor() {
-    fun anotherThing(): String {
-        return "I did something!"
+
+    fun doSomeOtherThing(): String {
+        return "Look I did some other thing!"
     }
 }
